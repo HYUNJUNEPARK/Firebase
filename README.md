@@ -58,3 +58,6 @@ https://bada744.tistory.com/m/161
 
 Firebase 에서 사용자 관리하기
 https://firebase.google.com/docs/auth/android/manage-users?hl=ko
+
+Dialog 팝업창 종류 및 커스텀 Dialog 팝업창
+https://mixup.tistory.com/36
