@@ -7,6 +7,8 @@ import com.google.firebase.ktx.Firebase
 
 class MyApplication: MultiDexApplication() {
     companion object {
+        const val TAG = "testLog"
+
         lateinit var auth: FirebaseAuth
         var email: String? = null
 

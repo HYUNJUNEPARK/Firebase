@@ -1,7 +1,9 @@
-package com.example.firebasetutorial
+package com.example.firebasetutorial.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.firebasetutorial.MyApplication
 import com.example.firebasetutorial.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,13 +14,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.authMainTextView.text = "${MyApplication.email} 로그인"
-        initLogOut()
+        initLogOutButton()
+        initChangePasswordButton()
     }
 
-    private fun initLogOut() {
+    private fun initLogOutButton() {
         binding.logoutBtn.setOnClickListener {
             MyApplication.auth.signOut()
-            MyApplication.email=null
+            MyApplication.email =null
+            finish()
+        }
+    }
+
+    private fun initChangePasswordButton() {
+        binding.changePassword.setOnClickListener {
+            val intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }

@@ -55,3 +55,6 @@ https://acver.tistory.com/entry/Google%EB%A1%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%
 
 default_web_client_id
 https://bada744.tistory.com/m/161
+
+Firebase 에서 사용자 관리하기
+https://firebase.google.com/docs/auth/android/manage-users?hl=ko

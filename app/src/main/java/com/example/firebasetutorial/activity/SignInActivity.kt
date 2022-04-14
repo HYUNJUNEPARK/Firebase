@@ -1,8 +1,9 @@
-package com.example.firebasetutorial
+package com.example.firebasetutorial.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.firebasetutorial.MyApplication
 import com.example.firebasetutorial.databinding.ActivitySignInBinding
 
 class SignInActivity : AppCompatActivity() {

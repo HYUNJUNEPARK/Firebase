@@ -1,4 +1,4 @@
-package com.example.firebasetutorial
+package com.example.firebasetutorial.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.firebasetutorial.MyApplication
+import com.example.firebasetutorial.R
 import com.example.firebasetutorial.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -24,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
         initSignIn()
         initGoogleLogin()
         initLoginButton()
+        initFindPasswordButton()
 
         resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -34,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
                     MyApplication.auth.signInWithCredential(credential)
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
-                                MyApplication.email=account.email
+                                MyApplication.email =account.email
                                 val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent)
                             } else {
@@ -45,6 +48,13 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error : $e", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun initFindPasswordButton() {
+        binding.sendChangePasswordEmailButton.setOnClickListener {
+            val intent = Intent(this, FindPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -70,6 +80,12 @@ class LoginActivity : AppCompatActivity() {
         binding.loginBtn.setOnClickListener {
             val email: String = binding.authEmailEditView.text.toString()
             val password: String = binding.authPasswordEditView.text.toString()
+            
+            if (email == "" || password == "") {
+                Toast.makeText(this, "ID/PW 를 입력하세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             MyApplication.auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     binding.authEmailEditView.text.clear()

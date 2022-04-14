@@ -11,10 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseTutorial">
         <activity
-            android:name=".SignInActivity"
+            android:name=".activity.FindPasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.ChangePasswordActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.SignInActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +29,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:name=".activity.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
