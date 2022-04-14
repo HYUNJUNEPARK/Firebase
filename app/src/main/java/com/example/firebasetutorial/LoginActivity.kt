@@ -1,11 +1,12 @@
 package com.example.firebasetutorial
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.example.firebasetutorial.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -14,6 +15,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
+    lateinit var resultListener: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,28 @@ class LoginActivity : AppCompatActivity() {
         initSignIn()
         initGoogleLogin()
         initLoginButton()
+
+        resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)!!
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                    MyApplication.auth.signInWithCredential(credential)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                MyApplication.email=account.email
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                } catch (e: ApiException) {
+                    Toast.makeText(this, "Error : $e", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun initSignIn() {
@@ -34,35 +58,11 @@ class LoginActivity : AppCompatActivity() {
     private fun initGoogleLogin() {
         binding.googleLoginBtn.setOnClickListener {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                //.requestIdToken(getString(R.string.default_web_client_id))
-                .requestIdToken("defaultID@gmail.com")
+                .requestIdToken(getString(R.string.default_web_client))
                 .requestEmail()
                 .build()
             val signInIntent = GoogleSignIn.getClient(this, gso).signInIntent
-            startActivityForResult(signInIntent, 10)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==10 ){
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-                MyApplication.auth.signInWithCredential(credential)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            MyApplication.email=account.email
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                            Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-            } catch (e: ApiException) {
-                Toast.makeText(this, "Error : $e", Toast.LENGTH_SHORT).show()
-            }
+            resultListener.launch(signInIntent)
         }
     }
 
@@ -89,6 +89,5 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         }
-
     }
 }

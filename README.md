@@ -49,3 +49,9 @@ https://singo112ok.tistory.com/49
 
 Android - MultiDex 적용하는 방법
 https://codechacha.com/ko/androidx-multidex/
+
+Google 로그인 에러(com.google.Android.gms.common.api.ApiException : 10)
+https://acver.tistory.com/entry/Google%EB%A1%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%97%90%EB%9F%ACcomgoogleAndroidgmscommonapiApiException-10
+
+default_web_client_id
+https://bada744.tistory.com/m/161
