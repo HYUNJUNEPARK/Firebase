@@ -7,18 +7,28 @@ test.jks : 키 파일명
 key() : 키 이름
 ##### : 키 파일 비밀번호, 키 비밀번호
 
-2.인증
+2.Build
 `implementation 'com.google.firebase:firebase-auth-ktx'`
 
 `implementation 'com.google.android.gms:play-service-auth:18.1.0'`
 -플레이 서비스 인증 라이브러리
 -구글 인증은 AOS 에 설치된 구글 인증 앱과 연동하여 처리함
 
-cf. `implementation platform('com.google.firebase:firebase-bom:29.3.0')`
+`implementation platform('com.google.firebase:firebase-bom:29.3.0')`
 -BoM(bill of materials) 를 사용하면 BoM 버전에 매핑된 개별 라이브러리 버전을 가져옴
 -다른 파이어베이스 라이브러리를 등록할 때 버전을 지정하지 않아도 됨
 
-cf. Cannot fit requested classes in a single dex file
+
+
+3.MultiDexApplication()
+-앱 전역에서 파이어베이스 인증 객체를 이용하고자 Application 을 상속받은 클래스 작성 후 패니페스트에 등록
+```
+<application
+    android:name=".MyApplication"
+</application>
+```
+
+-To solve Cannot fit requested classes in a single dex file
 ```
 android {
     defaultConfig {
@@ -31,8 +41,6 @@ dependencies {
 }
 ```
 
-
-3.
 
 
 //
