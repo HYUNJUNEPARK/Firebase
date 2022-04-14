@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
                 try {
                     val account = task.getResult(ApiException::class.java)!!
                     val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
                     MyApplication.auth.signInWithCredential(credential)
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
@@ -97,11 +98,11 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                         else {
-                            Toast.makeText(baseContext, "전송된 메일로 이메일 인증이 되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "전송된 메일로 이메일 인증이 되지 않았습니다.", Toast.LENGTH_SHORT).show()
                         }
                     }
                     else {
-                        Toast.makeText(baseContext, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
         }

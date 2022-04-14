@@ -20,6 +20,7 @@ class SignInActivity : AppCompatActivity() {
         binding.signBtn.setOnClickListener {
             val email: String = binding.authEmailEditView.text.toString()
             val password: String = binding.authPasswordEditView.text.toString()
+
             MyApplication.auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     binding.authEmailEditView.text.clear()
@@ -28,16 +29,16 @@ class SignInActivity : AppCompatActivity() {
                         MyApplication.auth.currentUser?.sendEmailVerification()
                             ?.addOnCompleteListener { sendTask ->
                                 if (sendTask.isSuccessful){
-                                    Toast.makeText(baseContext, "회원가입에 성공하였습니다. 전송된 메일을 확인해 주세요.", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "회원가입에 성공하였습니다. 전송된 메일을 확인해 주세요.", Toast.LENGTH_SHORT).show()
                                     finish()
                                 }
                                 else {
-                                    Toast.makeText(baseContext, "메일 전송 실패", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "메일 전송 실패", Toast.LENGTH_SHORT).show()
                                 }
                             }
                     }
                     else {
-                        Toast.makeText(baseContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
         }
