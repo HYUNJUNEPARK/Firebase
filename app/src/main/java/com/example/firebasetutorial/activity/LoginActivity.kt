@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         initGoogleLogin()
         initLoginButton()
         initFindPasswordButton()
+        initGoToStoreActivityButton()
 
         resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -105,6 +106,13 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
+        }
+    }
+
+    private fun initGoToStoreActivityButton() {
+        binding.noMemberActivityButton.setOnClickListener {
+            val intent = Intent(this, StoreActivity::class.java)
+            startActivity(intent)
         }
     }
 }

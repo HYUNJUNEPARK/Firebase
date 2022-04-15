@@ -76,6 +76,16 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/noMemberActivityButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FF0000"
+            android:text="비회원 접근"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </ScrollView>
