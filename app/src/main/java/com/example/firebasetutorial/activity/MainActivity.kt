@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         initLogOutButton()
         initChangePasswordButton()
         initDeleteUserButton()
+        initFirestoreTestButton()
     }
 
     private fun initLogOutButton() {
@@ -70,6 +71,12 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
             }
+        }
+    }
+    private fun initFirestoreTestButton() {
+        binding.firestoreTestButton.setOnClickListener {
+            val intent = Intent(this, StoreActivity::class.java)
+            startActivity(intent)
         }
     }
 }
