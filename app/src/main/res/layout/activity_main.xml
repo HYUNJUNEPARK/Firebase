@@ -56,5 +56,14 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/StorageTestButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#FF0000"
+            android:text="FIREBASE_STORAGE TEST"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
     </LinearLayout>
 </ScrollView>

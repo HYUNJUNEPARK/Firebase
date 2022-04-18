@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseTutorial">
         <activity
+            android:name=".activity_storage.StorageRecyclerViewActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity_storage.StorageActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />

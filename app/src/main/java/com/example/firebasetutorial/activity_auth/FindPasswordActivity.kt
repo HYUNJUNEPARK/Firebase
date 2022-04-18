@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.example.firebasetutorial.MyApplication.Companion.TAG
 import com.example.firebasetutorial.MyApplication.Companion.auth
 import com.example.firebasetutorial.databinding.ActivityFindPasswordBinding
-import com.google.firebase.auth.FirebaseUser
 
 class FindPasswordActivity : AppCompatActivity() {
     private val binding by lazy { ActivityFindPasswordBinding.inflate(layoutInflater) }

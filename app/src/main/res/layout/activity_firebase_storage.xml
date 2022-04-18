@@ -8,25 +8,55 @@
     android:orientation="vertical"
     tools:context=".activity_storage.StorageActivity">
 
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="sample@gamil.com 로그인"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
+
     <ImageView
         android:id="@+id/addImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
+        android:background="@color/purple_200"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/emailTextView" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
+    <FrameLayout
+        android:layout_marginTop="40dp"
+        android:id="@+id/frameLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addImageView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editTextView"
+            android:maxLines="1"
+            android:hint="텍스트 입력"
+            tools:text="Sample sentence"
+            android:textSize="18sp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:layout_gravity="center"
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:visibility="invisible"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+    </FrameLayout>
 
     <Button
         android:id="@+id/galleryButton"
@@ -38,7 +68,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@id/frameLayout" />
 
     <Button
         android:id="@+id/uploadButton"

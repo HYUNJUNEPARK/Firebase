@@ -28,32 +28,10 @@ class LoginActivity : AppCompatActivity() {
         initSignIn()
         initGoogleLogin()
         initLoginButton()
+        initGoogleLoginResultListener()
         initFindPasswordButton()
         initGoToStoreActivityButton()
-        initFireStorageActivityButton()
-
-        resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                try {
-                    val account = task.getResult(ApiException::class.java)!!
-                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-
-                    MyApplication.auth.signInWithCredential(credential)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                MyApplication.email =account.email
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                            } else {
-                                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                } catch (e: ApiException) {
-                    Toast.makeText(this, "Error : $e", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        initGoToStorageActivityButton()
     }
 
     private fun initFindPasswordButton() {
@@ -78,6 +56,31 @@ class LoginActivity : AppCompatActivity() {
                 .build()
             val signInIntent = GoogleSignIn.getClient(this, gso).signInIntent
             resultListener.launch(signInIntent)
+        }
+    }
+
+    private fun initGoogleLoginResultListener() {
+        resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)!!
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+                    MyApplication.auth.signInWithCredential(credential)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                MyApplication.email =account.email
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                } catch (e: ApiException) {
+                    Toast.makeText(this, "Error : $e", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -119,7 +122,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun initFireStorageActivityButton() {
+    private fun initGoToStorageActivityButton() {
         binding.FirebaseStorageButton.setOnClickListener {
             val intent = Intent(this, StorageActivity::class.java)
             startActivity(intent)

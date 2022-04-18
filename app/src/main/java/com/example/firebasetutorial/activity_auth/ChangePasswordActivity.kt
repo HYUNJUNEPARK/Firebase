@@ -10,7 +10,6 @@ import com.google.firebase.auth.FirebaseUser
 
 class ChangePasswordActivity : AppCompatActivity() {
     private val binding by lazy { ActivityChangePasswordBinding.inflate(layoutInflater) }
-
     lateinit var user:FirebaseUser
     lateinit var newPassword:String
 
