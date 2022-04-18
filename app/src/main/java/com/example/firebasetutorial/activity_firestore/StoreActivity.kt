@@ -1,4 +1,4 @@
-package com.example.firebasetutorial.activity
+package com.example.firebasetutorial.activity_firestore
 
 import android.os.Bundle
 import android.util.Log

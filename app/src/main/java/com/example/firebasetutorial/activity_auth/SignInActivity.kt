@@ -1,4 +1,4 @@
-package com.example.firebasetutorial.activity
+package com.example.firebasetutorial.activity_auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

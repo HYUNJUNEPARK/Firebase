@@ -1,4 +1,4 @@
-package com.example.firebasetutorial.activity
+package com.example.firebasetutorial.activity_auth
 
 import android.os.Bundle
 import android.widget.Toast

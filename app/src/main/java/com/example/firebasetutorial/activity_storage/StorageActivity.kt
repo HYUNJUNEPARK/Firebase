@@ -1,7 +1,6 @@
-package com.example.firebasetutorial.activity
+package com.example.firebasetutorial.activity_storage
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,7 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
-import com.example.firebasetutorial.base.BaseActivity
+import com.example.firebasetutorial.baseForPermission.BaseActivity
 import com.example.firebasetutorial.databinding.ActivityFirebaseStorageBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -19,7 +18,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
-class FirebaseStorageActivity : BaseActivity() {
+class StorageActivity : BaseActivity() {
     private val binding by lazy { ActivityFirebaseStorageBinding.inflate(layoutInflater) }
     private lateinit var storage: FirebaseStorage
     private lateinit var storageRef: StorageReference

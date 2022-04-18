@@ -1,4 +1,4 @@
-package com.example.firebasetutorial.activity
+package com.example.firebasetutorial.activity_auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import com.example.firebasetutorial.MyApplication
 import com.example.firebasetutorial.MyApplication.Companion.auth
 import com.example.firebasetutorial.MyApplication.Companion.email
 import com.example.firebasetutorial.R
+import com.example.firebasetutorial.activity_firestore.StoreActivity
 import com.example.firebasetutorial.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

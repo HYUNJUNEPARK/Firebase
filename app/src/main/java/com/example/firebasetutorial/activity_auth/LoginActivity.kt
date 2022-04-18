@@ -1,4 +1,4 @@
-package com.example.firebasetutorial.activity
+package com.example.firebasetutorial.activity_auth
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firebasetutorial.MyApplication
 import com.example.firebasetutorial.R
+import com.example.firebasetutorial.activity_firestore.*
+import com.example.firebasetutorial.activity_storage.StorageActivity
 import com.example.firebasetutorial.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -119,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initFireStorageActivityButton() {
         binding.FirebaseStorageButton.setOnClickListener {
-            val intent = Intent(this, FirebaseStorageActivity::class.java)
+            val intent = Intent(this, StorageActivity::class.java)
             startActivity(intent)
         }
     }

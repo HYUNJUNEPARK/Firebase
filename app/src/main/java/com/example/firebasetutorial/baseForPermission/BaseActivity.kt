@@ -1,4 +1,4 @@
-package com.example.firebasetutorial.base
+package com.example.firebasetutorial.baseForPermission
 
 import android.content.pm.PackageManager
 import android.os.Build
