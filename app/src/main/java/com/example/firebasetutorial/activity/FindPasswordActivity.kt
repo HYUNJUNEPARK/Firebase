@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseUser
 class FindPasswordActivity : AppCompatActivity() {
     private val binding by lazy { ActivityFindPasswordBinding.inflate(layoutInflater) }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

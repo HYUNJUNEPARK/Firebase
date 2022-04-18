@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     //Added lines
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -57,4 +58,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     //implementation 'com.google.firebase:firebase-firestore-ktx:21.2.1'
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.firebaseui:firebase-ui-storage:7.1.0'
+
 }

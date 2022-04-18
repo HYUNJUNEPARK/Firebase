@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         initLoginButton()
         initFindPasswordButton()
         initGoToStoreActivityButton()
+        initFireStorageActivityButton()
 
         resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -112,6 +113,13 @@ class LoginActivity : AppCompatActivity() {
     private fun initGoToStoreActivityButton() {
         binding.noMemberActivityButton.setOnClickListener {
             val intent = Intent(this, StoreActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initFireStorageActivityButton() {
+        binding.FirebaseStorageButton.setOnClickListener {
+            val intent = Intent(this, FirebaseStorageActivity::class.java)
             startActivity(intent)
         }
     }

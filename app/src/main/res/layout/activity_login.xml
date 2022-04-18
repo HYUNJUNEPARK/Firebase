@@ -16,9 +16,9 @@
         <TextView
             android:id="@+id/authMainTextView"
             android:layout_width="match_parent"
-            android:text="로그인 하거나 회원가입 해주세요."
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:text="로그인 하거나 회원가입 해주세요." />
 
         <Button
             android:id="@+id/goSignInBtn"
@@ -76,15 +76,39 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/noMemberActivityButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="#FF0000"
-            android:text="비회원 접근"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/noMemberActivityButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="3"
+                android:backgroundTint="#FF0000"
+                android:text="[FIRESTORE]  \n비회원 접근"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/FirebaseStorageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="2"
+                android:backgroundTint="#FF0000"
+                android:text="[FIREBASE_STORAGE]  \n비회원 접근"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
