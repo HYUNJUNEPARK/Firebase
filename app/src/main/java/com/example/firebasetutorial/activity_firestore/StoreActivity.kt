@@ -10,7 +10,7 @@ import com.example.firebasetutorial.MyApplication.Companion.TAG
 import com.example.firebasetutorial.databinding.ActivityStoreBinding
 import com.example.firebasetutorial.key.FirebaseKey.Companion.USERS
 import com.example.firebasetutorial.model.User
-import com.example.firebasetutorial.model.UserForUpdateDelete
+import com.example.firebasetutorial.model.UserForObj
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -19,7 +19,7 @@ class StoreActivity : AppCompatActivity() {
     private val binding by lazy { ActivityStoreBinding.inflate(layoutInflater) }
     private lateinit var db: FirebaseFirestore
     private val sb = StringBuilder()
-    var userObj: UserForUpdateDelete? = null
+    var userObj: UserForObj? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,7 +116,7 @@ class StoreActivity : AppCompatActivity() {
                         initUpdateButton(document.id)
 
                         if (document != null) {
-                            userObj = document.toObject(UserForUpdateDelete::class.java)
+                            userObj = document.toObject(UserForObj::class.java)
                             sb.append(
                                 "name : ${document.data?.get("name")} \n" +
                                         "email : ${document.data?.get("email")} \n" +

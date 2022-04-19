@@ -5,27 +5,26 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.example.firebasetutorial.MyApplication
-import com.example.firebasetutorial.MyApplication.Companion.TAG
+import com.example.firebasetutorial.R
 import com.example.firebasetutorial.baseForPermission.BaseActivity
 import com.example.firebasetutorial.databinding.ActivityFirebaseStorageBinding
 import com.example.firebasetutorial.key.FirebaseKey.Companion.IMG_DESCRIPTION
 import com.google.firebase.storage.StorageReference
 import java.io.File
 
-class StorageActivity : BaseActivity() {
+class StorageUploadActivity : BaseActivity() {
     private val binding by lazy { ActivityFirebaseStorageBinding.inflate(layoutInflater) }
+    private lateinit var resultListener: ActivityResultLauncher<Intent>
+    private lateinit var filePath: String
     private val permissionList: Array<String> = arrayOf(
         android.Manifest.permission.READ_EXTERNAL_STORAGE
     )
-    private lateinit var resultListener: ActivityResultLauncher<Intent>
-    private lateinit var filePath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +32,27 @@ class StorageActivity : BaseActivity() {
 
         binding.emailTextView.text = "${MyApplication.email} 로그인"
 
-        initUploadButton()
-        initOpenGalleryButton()
-        goToStorageListActivityButton()
+        initGalleryOpenButton()
         initResultListener()
+        initUploadButton()
+        initGoToStorageRecyclerViewActivityButton()
     }
 
     override fun permissionGranted(requestCode: Int) {
+        getImgFromGallery()
+    }
+
+    override fun permissionDenied(requestCode: Int) {
+        requirePermissions(permissionList, 10)
+    }
+
+    private fun initGalleryOpenButton() {
+        binding.galleryButton.setOnClickListener {
+            requirePermissions(permissionList, 10)
+        }
+    }
+
+    private fun getImgFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.setDataAndType(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -48,44 +61,34 @@ class StorageActivity : BaseActivity() {
         resultListener.launch(intent)
     }
 
-    override fun permissionDenied(requestCode: Int) {
-        requirePermissions(permissionList, 10)
-    }
-
     private fun initResultListener() {
-        resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                Glide.with(this)
-                    .load(result.data?.data)
-                    .into(binding.addImageView)
+        resultListener =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { takenImg ->
+                if (takenImg.resultCode == Activity.RESULT_OK) {
+                    val imgUri: Uri? = takenImg.data?.data
 
-                Log.d(TAG, "StorActivity: ${result.data?.data}")
-
-                val cursor = contentResolver.query(
-                    result.data?.data as Uri,
-                    arrayOf<String>(MediaStore.Images.Media.DATA),
-                    null,
-                    null,
-                    null
-                )
-                
-                cursor?.moveToFirst().let { 
-                    filePath = cursor?.getString(0) as String
+                    Glide.with(this)
+                        .load(imgUri)
+                        .error(R.drawable.ic_baseline_cancel_24)
+                        .override(100, 100)
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_baseline_refresh_24)
+                        .into(binding.addImageView)
+                    val cursor = contentResolver.query(
+                        imgUri as Uri,
+                        arrayOf<String>(MediaStore.Images.Media.DATA),
+                        null, null, null
+                    )
+                    cursor?.moveToFirst().let {
+                        filePath = cursor?.getString(0) as String
+                    }
                 }
             }
-        }
-    }
-
-    private fun initOpenGalleryButton() {
-        binding.galleryButton.setOnClickListener {
-            requirePermissions(permissionList, 10)
-        }
     }
 
     private fun initUploadButton() {
         binding.uploadButton.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
-
             if (binding.addImageView.drawable == null || binding.editTextView.text.isEmpty()) {
                 Toast.makeText(this, "이미지 또는 텍스트 없음", Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility = View.INVISIBLE
@@ -100,11 +103,11 @@ class StorageActivity : BaseActivity() {
             "email" to MyApplication.email,
             "description" to binding.editTextView.text.toString()
         )
-
         Thread {
             MyApplication.db.collection(IMG_DESCRIPTION)
                 .add(data)
                 .addOnSuccessListener { document ->
+                    //Store 에 저장되는 document 의 id 를 이미지의이름으로 하며, 이미지를 Storage 에 저장
                     uploadImgToStorage(document.id)
                 }
                 .addOnFailureListener { e ->
@@ -120,11 +123,9 @@ class StorageActivity : BaseActivity() {
         val storage = MyApplication.storage
         val storageRef = storage.reference
         val imgRef: StorageReference = storageRef.child("images/$id.jpg")
-
-        var file = Uri.fromFile(File(filePath))
-
+        var file_uri = Uri.fromFile(File(filePath))
         Thread {
-            imgRef.putFile(file)
+            imgRef.putFile(file_uri)
                 .addOnSuccessListener {
                     runOnUiThread {
                         binding.progressBar.visibility = View.INVISIBLE
@@ -141,7 +142,7 @@ class StorageActivity : BaseActivity() {
         }.start()
     }
 
-    private fun goToStorageListActivityButton() {
+    private fun initGoToStorageRecyclerViewActivityButton() {
         binding.loadImageListButton.setOnClickListener {
             val intent = Intent(this, StorageRecyclerViewActivity::class.java)
             startActivity(intent)

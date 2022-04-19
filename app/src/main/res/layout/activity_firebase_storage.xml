@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="40dp"
     android:orientation="vertical"
-    tools:context=".activity_storage.StorageActivity">
+    tools:context=".activity_storage.StorageUploadActivity">
 
     <TextView
         android:id="@+id/emailTextView"

@@ -13,7 +13,7 @@ import com.example.firebasetutorial.MyApplication.Companion.auth
 import com.example.firebasetutorial.MyApplication.Companion.email
 import com.example.firebasetutorial.R
 import com.example.firebasetutorial.activity_firestore.StoreActivity
-import com.example.firebasetutorial.activity_storage.StorageActivity
+import com.example.firebasetutorial.activity_storage.StorageUploadActivity
 import com.example.firebasetutorial.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initStorageTestButton() {
         binding.StorageTestButton.setOnClickListener {
-            val intent = Intent(this, StorageActivity::class.java)
+            val intent = Intent(this, StorageUploadActivity::class.java)
             startActivity(intent)
         }
     }

@@ -17,7 +17,7 @@
             android:name=".activity_storage.StorageRecyclerViewActivity"
             android:exported="true" />
         <activity
-            android:name=".activity_storage.StorageActivity"
+            android:name=".activity_storage.StorageUploadActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
