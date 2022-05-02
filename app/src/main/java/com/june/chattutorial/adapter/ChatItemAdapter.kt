@@ -1,46 +1,63 @@
 package com.june.chattutorial.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.june.chattutorial.databinding.ItemMyChatBinding
 import com.june.chattutorial.databinding.ItemPartnerUserChatBinding
-import com.june.chattutorial.firebase.FBVal.Companion.TAG
 import com.june.chattutorial.firebase.FBVal.Companion.currentUser
 import com.june.chattutorial.key.ViewType.Companion.CURRENT_USER_MESSAGE
 import com.june.chattutorial.key.ViewType.Companion.PARTNER_USER_MESSAGE
 import com.june.chattutorial.model.ChatItemModel
 
-class ChatItemAdapter : ListAdapter<ChatItemModel, ChatItemAdapter.ViewHolder>(diffUtil) {
-    inner class ViewHolder(private val binding: ItemPartnerUserChatBinding): RecyclerView.ViewHolder(binding.root) {
+class ChatItemAdapter : ListAdapter<ChatItemModel, RecyclerView.ViewHolder>(diffUtil) {
+    inner class PartnerUserViewHolder(private val binding: ItemPartnerUserChatBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(chatItem: ChatItemModel) {
             binding.messageTextView.text = chatItem.message
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemPartnerUserChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    inner class MyChatViewHolder(private val binding: ItemMyChatBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(chatItem: ChatItemModel) {
+            binding.messageTextView.text = chatItem.message
+        }
+    }
 
-        return when (viewType) {
+    @NonNull
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val partnerUserBinding = ItemPartnerUserChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val currentUserBinding = ItemMyChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+         when (viewType) {
             CURRENT_USER_MESSAGE -> {
-                Log.d(TAG, "onCreateViewHolder: 내가 보낸 메세지")
-                ViewHolder(binding)
+                return PartnerUserViewHolder(partnerUserBinding)
             }
             PARTNER_USER_MESSAGE  -> {
-                Log.d(TAG, "onCreateViewHolder: 남이 보낸 메세지")
-                ViewHolder(binding)
+                return MyChatViewHolder(currentUserBinding)
             }
             else -> {
-                Log.d(TAG, "--------------")
-                ViewHolder(binding)
+                return PartnerUserViewHolder(partnerUserBinding)
             }
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        //TODO
+        if (currentList[position].senderId == currentUser?.uid) {
+            val holder: PartnerUserViewHolder = holder as PartnerUserViewHolder
+            holder.bind(currentList[position])
+        }
+        else {
+            val holder: MyChatViewHolder = holder as MyChatViewHolder
+            holder.bind(currentList[position])
+        }
+
+        //멀티 뷰 참고 링크
+        //https://youngest-programming.tistory.com/69
+        //holder.bind(currentList[position])
     }
 
     override fun getItemViewType(position: Int): Int {
