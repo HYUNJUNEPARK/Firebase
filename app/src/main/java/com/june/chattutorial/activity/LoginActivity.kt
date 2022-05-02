@@ -9,16 +9,16 @@ import com.june.chattutorial.databinding.ActivityLoginBinding
 import com.june.chattutorial.firebase.FBVal.Companion.auth
 import com.june.chattutorial.firebase.FBVal.Companion.currentUser
 import com.june.chattutorial.firebase.FBVal.Companion.initCurrentUser
+import com.june.chattutorial.key.UserIDPW.Companion.userA_ID
+import com.june.chattutorial.key.UserIDPW.Companion.userA_PW
+import com.june.chattutorial.key.UserIDPW.Companion.userB_ID
+import com.june.chattutorial.key.UserIDPW.Companion.userB_PW
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
-    private val userA_ID = "testa@test.com"
-    private val userA_PW = "111111"
-    private val userB_ID = "testb@test.com"
-    private val userB_PW = "111111"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,8 +7,33 @@
     tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/userIdTextView"
+        android:id="@+id/coverTextView"
         android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="대화 기록이 없습니다."
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/div2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/div1" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/userProfileImageView"
+            app:layout_constraintTop_toTopOf="@id/userIdTextView"
+            app:layout_constraintBottom_toBottomOf="@id/userIdTextView"
+            app:layout_constraintEnd_toStartOf="@id/userIdTextView"
+            android:background="@drawable/ic_launcher_background"
+            android:layout_marginRight="10dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/userIdTextView"
+        android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
         android:gravity="center"
         android:text="sampleId@gmail.com"
@@ -31,7 +56,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="12dp"
+        android:background="@color/sky"
         app:layout_constraintBottom_toTopOf="@id/div2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
