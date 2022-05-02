@@ -6,21 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/coverTextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="대화 기록이 없습니다."
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/div2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/div1" />
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/userProfileImageView"
             app:layout_constraintTop_toTopOf="@id/userIdTextView"

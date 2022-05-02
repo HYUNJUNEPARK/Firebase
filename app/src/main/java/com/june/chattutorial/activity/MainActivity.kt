@@ -28,22 +28,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var currentUserDB: DatabaseReference
     private lateinit var partnerUserDB: DatabaseReference
     private val chatList = mutableListOf<ChatItemModel>()
-    private val adapter = ChatItemAdapter()
+    private val adapter = ChatItemAdapter(this)
     private lateinit var partnerUid: String
     private val valueEventListener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
-            chatList.clear()
-            if (snapshot.value == null) {
-                binding.coverTextView.visibility = View.VISIBLE
-                return
-            }
+            //chatList.clear()
+
             for (chatDialogue in snapshot.children) {
                 val chatDialogueMap = chatDialogue.value as HashMap<String, String>
                 val senderId = chatDialogueMap[SENDER_ID]
                 val message = chatDialogueMap[MESSAGE]
                 val sendTime =
                     if (chatDialogueMap[SEND_TIME] == null) "0" else chatDialogueMap[SEND_TIME].toString()
-
                 val chatModel = ChatItemModel(
                     senderId = senderId,
                     message = message,
