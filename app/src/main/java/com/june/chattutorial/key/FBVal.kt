@@ -1,4 +1,4 @@
-package com.june.chattutorial.firebase
+package com.june.chattutorial.key
 
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.auth.FirebaseAuth
@@ -10,7 +10,6 @@ import com.google.firebase.ktx.Firebase
 
 class FBVal: MultiDexApplication() {
     companion object {
-        const val TAG = "testLog"
         lateinit var auth: FirebaseAuth
         lateinit var firebaseDBReference: DatabaseReference
         var currentUser: FirebaseUser? = null

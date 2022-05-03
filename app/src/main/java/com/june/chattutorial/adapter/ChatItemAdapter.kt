@@ -1,5 +1,6 @@
 package com.june.chattutorial.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -10,32 +11,51 @@ import androidx.recyclerview.widget.RecyclerView
 import com.june.chattutorial.R
 import com.june.chattutorial.databinding.ItemMyChatBinding
 import com.june.chattutorial.databinding.ItemPartnerUserChatBinding
-import com.june.chattutorial.firebase.FBVal.Companion.currentUser
+import com.june.chattutorial.key.FBVal.Companion.currentUser
 import com.june.chattutorial.key.UserIDPW.Companion.userA_UID
 import com.june.chattutorial.key.ViewType.Companion.CURRENT_USER_MESSAGE
 import com.june.chattutorial.key.ViewType.Companion.PARTNER_USER_MESSAGE
 import com.june.chattutorial.model.ChatItemModel
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ChatItemAdapter(activity: AppCompatActivity) : ListAdapter<ChatItemModel, RecyclerView.ViewHolder>(diffUtil) {
-    val activity = activity
-
+class ChatItemAdapter(private val activity: AppCompatActivity) : ListAdapter<ChatItemModel, RecyclerView.ViewHolder>(diffUtil) {
     inner class PartnerUserViewHolder(private val binding: ItemPartnerUserChatBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(chatItem: ChatItemModel) {
             binding.messageTextView.text = chatItem.message
-
-            val userBResId: Int = R.drawable.user_b
-            val userAResId: Int = R.drawable.user_a
-            val drawableResId = if (currentUser!!.uid != userA_UID) userAResId else userBResId
-            initPartnerUserProfile(drawableResId)
-        }
-        private fun initPartnerUserProfile(drawableResId: Int) {
-            binding.profileImage.background = ResourcesCompat.getDrawable(activity.resources, drawableResId, null)
+            binding.dateTextView.text = timeFormat(chatItem)
+            binding.profileImage.background = partnerUserProfileDrawable()
         }
     }
 
     inner class MyChatViewHolder(private val binding: ItemMyChatBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(chatItem: ChatItemModel) {
             binding.messageTextView.text = chatItem.message
+            binding.dateTextView.text = timeFormat(chatItem)
+        }
+    }
+
+    private fun timeFormat(chatItem: ChatItemModel): String {
+        val format = SimpleDateFormat("hh:mm")
+        val date = Date(chatItem.sendTime!!)
+
+        return format.format(date).toString()
+    }
+
+    private fun partnerUserProfileDrawable(): Drawable {
+        val userBResId: Int = R.drawable.user_b
+        val userAResId: Int = R.drawable.user_a
+        val drawableResId = if (currentUser!!.uid != userA_UID) userAResId else userBResId
+
+        return ResourcesCompat.getDrawable(activity.resources, drawableResId, null)!!
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        val message = currentList[position]
+        return if (message.senderId == currentUser?.uid) {
+            CURRENT_USER_MESSAGE
+        } else {
+            PARTNER_USER_MESSAGE
         }
     }
 
@@ -58,15 +78,6 @@ class ChatItemAdapter(activity: AppCompatActivity) : ListAdapter<ChatItemModel, 
         else {
             val holder = holder as PartnerUserViewHolder
             holder.bind(currentList[position])
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        val message = currentList[position]
-        return if (message.senderId == currentUser?.uid) {
-            CURRENT_USER_MESSAGE
-        } else {
-            PARTNER_USER_MESSAGE
         }
     }
 

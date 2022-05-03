@@ -6,9 +6,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.june.chattutorial.databinding.ActivityLoginBinding
-import com.june.chattutorial.firebase.FBVal.Companion.auth
-import com.june.chattutorial.firebase.FBVal.Companion.currentUser
-import com.june.chattutorial.firebase.FBVal.Companion.initCurrentUser
+import com.june.chattutorial.key.FBVal.Companion.auth
+import com.june.chattutorial.key.FBVal.Companion.currentUser
+import com.june.chattutorial.key.FBVal.Companion.initCurrentUser
 import com.june.chattutorial.key.UserIDPW.Companion.userA_ID
 import com.june.chattutorial.key.UserIDPW.Companion.userA_PW
 import com.june.chattutorial.key.UserIDPW.Companion.userB_ID
